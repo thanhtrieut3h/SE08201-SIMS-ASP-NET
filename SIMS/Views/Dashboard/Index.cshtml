@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model SIMS.Models.ProductViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutSIMS.cshtml";
+    ViewData["title"] = "Dashboard";
+    ViewData["page"] = "Home";
+    ViewData["breadcrumb"] = "dashboard";
+    var age = ViewData["age"];
+    var name = ViewData["name"];
+}
+<div class="row">
+    <div class="col">
+        <h4> Dashboard page !!!!</h4>
+        <p>Welcome @name - @age</p>
+        <p>Product ID : @Model.Id</p>
+        <p>Product Name : @Model.Name</p>
+        <p>Product Price: @Model.Price</p>
+    </div>
+</div>
