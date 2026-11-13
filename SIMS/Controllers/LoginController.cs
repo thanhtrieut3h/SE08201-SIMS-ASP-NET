@@ -1,10 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SIMS.Interfaces;
 using SIMS.Models;
 
 namespace SIMS.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IUserService _userService;
+        public LoginController(IUserService service)
+        {
+            _userService = service;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -13,14 +20,15 @@ namespace SIMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(LoginViewModel model)
+        public async Task<IActionResult> Index(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
                 // khong co loi nhap du lieu
                 string username = model.Username.ToString().Trim();
                 string password = model.Password.ToString().Trim();
-                if (username.Equals("admin") && password.Equals("12345"))
+                var user = await _userService.LoginUserAsync(username, password);
+                if (user != null)
                 {
                     // chuyen sang trang dashboard
                     return RedirectToAction("Index", "Dashboard");
